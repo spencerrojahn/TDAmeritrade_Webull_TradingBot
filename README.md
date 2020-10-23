@@ -1,6 +1,8 @@
 # TDAmeritrade_Webull_TradingBot
 Used to trade stocks automatically on the broker Webull based on your preferred algorithm alerts from TD Ameritrade's platform Thinkorswim.
 
+MUST have a TD Ameritrade account and a Webull account in order to use this program.
+
 The tradingBotWebull.py contains all of the source code for the program. You will need to provide your own credentials for the Webull login and the email login that is connected to your TD Ameritrade's Thinkorswim alerts. 
 
 PROGRAM: 
