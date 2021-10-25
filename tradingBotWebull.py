@@ -15,13 +15,13 @@ credentials = open("credentials.txt").read().splitlines()
 
 # Login to Webull
 wb = webull()
-#wb.get_mfa(username=credentials[4])
-wb.login(username=credentials[4], password=credentials[5], device_name="XXXXXXXXXXX", mfa="XXXXXX")
+#wb.get_mfa(username=credentials[2])
+wb.login(username=credentials[2], password=credentials[3], device_name="XXXXXXXXXXX", mfa="XXXXXX")
 print(wb.get_account())
 
 # Set up connection to email and login
 mail = imaplib.IMAP4_SSL("imap.gmail.com")
-mail.login(credentials[2], credentials[3])
+mail.login(credentials[0], credentials[1])
 
 print("START PROGRAM")
 
@@ -95,16 +95,16 @@ while (1):
 
 							try:
 								# Check if I have enough buying power for the share quantity
-								wb.get_trade_token(password=credentials[6])
+								wb.get_trade_token(password=credentials[4])
 								buying_power = float(wb.get_account()["accountMembers"][3]["value"])
 
-								wb.get_trade_token(password=credentials[6])
+								wb.get_trade_token(password=credentials[4])
 								last_price = float(wb.get_quote(stock=stock)["close"])
 								position_total_est = last_price*102
 								if (buying_power > position_total_est):
 
 									# BUY Strategy 1 (Webull)
-									wb.get_trade_token(password=credentials[6])
+									wb.get_trade_token(password=credentials[4])
 									wb.place_order(stock=stock, price=last_price+0.01, action="BUY", orderType="LMT", enforce="GTC", qty=100, outsideRegularTradingHour=True)
 									print("BUY: "+ stock)
 
@@ -124,11 +124,11 @@ while (1):
 						# If I have position with the current stock (Webull)
 						if stock in positions:
 
-							wb.get_trade_token(password=credentials[6])
+							wb.get_trade_token(password=credentials[4])
 							last_price = float(wb.get_quote(stock=stock)["close"])
 
 							# SELL Strategy 1 (Webull)
-							wb.get_trade_token(password=credentials[6])
+							wb.get_trade_token(password=credentials[4])
 							wb.place_order(stock=stock, price=last_price-0.01, action="SELL", orderType="LMT", enforce="GTC", qty=100, outsideRegularTradingHour=True)
 							print("SELL: "+ stock)
 
@@ -154,7 +154,7 @@ while (1):
 
 				try:
 					mail = imaplib.IMAP4_SSL("imap.gmail.com")
-					mail.login(credentials[2], credentials[3])
+					mail.login(credentials[0], credentials[1])
 					break
 					
 				except Exception as e:
